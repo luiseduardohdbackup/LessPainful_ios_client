@@ -74,7 +74,7 @@ Open the XCode project: LPSimpleExample.xcodeproj using XCode.
 Select the LPSimpleExample-LP and iPhone Simulator 4.3 or 5.0 scheme
 under schemes.
 
-![Selecting the right scheme](documentation/example-1.png "Selecting Scheme")
+![Selecting the right scheme](https://github.com/LessPainful/LessPainful_ios_client/raw/master/documentation/example-1.png "Selecting Scheme")
 
 ### Run it
 CMD-R to run. Look at the log output and verify that you see:
