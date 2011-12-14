@@ -1,0 +1,187 @@
+<h1>License</h1>
+
+<p>LessPainful-ios-client
+Copyright (c) Karl Krukow. All rights reserved.
+The use and distribution terms for this software are covered by the
+Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+which can be found in the file epl-v10.html at the root of this distribution.
+By using this software in any fashion, you are agreeing to be bound by
+the terms of this license.
+You must not remove this notice, or any other, from this software.</p>
+
+<h1>This guide explains how to setup and use LessPainful for iOS.</h1>
+
+<p>After completing this guide you will be able to run
+tests locally against the iOS Simulator. You can also
+interactively explore your applications using the Ruby
+irb console.</p>
+
+<p>Finally you will be able to build your application using special "test
+target" and run that on real iOS devices via
+<a href="http://www.lesspainful.com/">the LessPainful service</a>.</p>
+
+<p>This guide takes approximately 10-15 minutes to complete.</p>
+
+<h2>Installing the client.</h2>
+
+<h3>Prerequisites</h3>
+
+<p>You need to have Ruby 1.9.2+ installed, and a recent RubyGems
+installation. I use RVM or rbenv to manage my Ruby installations.</p>
+
+<p>For RVM, see:</p>
+
+<p><a href="http://beginrescueend.com/">http://beginrescueend.com/</a></p>
+
+<p>For rbenv, see:
+ <a href="https://github.com/sstephenson/rbenv">https://github.com/sstephenson/rbenv</a></p>
+
+<p>The rbenv project is probably the simpler of the two.</p>
+
+<p>You also need XCode 4.x. This guide aims at XCode 4.2, but should
+also work for XCode versions >= 4.0.</p>
+
+<h3>Installation</h3>
+
+<ul>
+<li><p>Make sure ruby and ruby gems is on your path.</p>
+
+<pre><code>krukow:~/examples$ ruby -v
+ruby 1.9.2p290 (2011-07-09 revision 32553) [x86_64-darwin11.1.0]
+krukow:~/examples$ gem -v
+1.8.10
+</code></pre></li>
+<li><p>Install <code>ilesspainfulclient-cucumber</code> gem version 0.1.3:</p>
+
+<pre><code>krukow:~/examples$ gem install ilesspainfulclient-cucumber
+Fetching: ilesspainfulclient-cucumber-0.1.3.gem (100%)
+Successfully installed ilesspainfulclient-cucumber-0.1.3
+1 gem installed
+</code></pre></li>
+</ul>
+
+<h2>Exploring the sample application.</h2>
+
+<p>Download the sample app from github:</p>
+
+<p><a href="https://github.com/LessPainful/LessPainful_ios_sample_app">LessPainful-ios-sample-app</a></p>
+
+<p>Let's say you've put the sample app in a into a working
+directory, <code>examples</code>.</p>
+
+<p>Open the XCode project: LPSimpleExample.xcodeproj using XCode.</p>
+
+<p>Select the LPSimpleExample-LP and iPhone Simulator 4.3 or 5.0 scheme
+under schemes.</p>
+
+<p><img src="documentation/example-1.png" alt="Selecting the right scheme" title="Selecting Scheme" /></p>
+
+<h3>Run it</h3>
+
+<p>CMD-R to run. Look at the log output and verify that you see:</p>
+
+<pre><code>LPSimpleExample[11298:13703] HTTPServer: Started HTTP server on port 37265
+</code></pre>
+
+<p>If that message is there, you're good to go.</p>
+
+<h3>Play with it</h3>
+
+<p>The easy way is to just run one of the irb scripts: <code>irb_ios4.sh</code> or
+<code>irb_ios5.sh</code>.</p>
+
+<p>From this console you can explore your application interactively.</p>
+
+<p>You can query, touch, scroll, etc from the irb session.
+For example, notice that the sample app has a button: "Login".</p>
+
+<h3>Query</h3>
+
+<p>If you're running the iOS5 iPhone simulator run <code>irb_ios5.sh</code> otherwise: <code>irb_ios4.sh</code>.</p>
+
+<p>Now try this from the irb:</p>
+
+<pre><code>ruby-1.9.2-p290 :003 &gt; query("button")
+</code></pre>
+
+<p>You should see something like this:</p>
+
+<pre><code>=&gt; ["&lt;UIRoundedRectButton: 0x6567e00; frame = (109 215; 73 37); opaque = NO; autoresize = RM+BM; layer = &lt;CALayer: 0x6567ef0&gt;&gt;"]
+</code></pre>
+
+<p>The <code>query</code> function takes a string query as an argument. They query argument is similar to a css selector, for example we can do:</p>
+
+<pre><code>ruby-1.9.2-p290 :009 &gt; query("button label")
+ =&gt; ["&lt;UIButtonLabel: 0x6624f40; frame = (16 9; 40 19); text = 'Login'; clipsToBounds = YES; opaque = NO; userInteractionEnabled = NO; layer = &lt;CALayer: 0x6645ec0&gt;&gt;"]
+</code></pre>
+
+<p>It may also take parameters that are mapped to Objective-C selectors on the found object.</p>
+
+<pre><code>ruby-1.9.2-p290 :010 &gt; query("button label", :text)
+=&gt; ["Login"]
+</code></pre>
+
+<h3>Touch</h3>
+
+<p>Anything that can be found using query can also be touched.
+Try this while you watch the iOS Simulator:</p>
+
+<pre><code>ruby-1.9.2-p290 :011 &gt; touch("button")
+</code></pre>
+
+<p>Notice that the button is touched (turns blue), although this button doesn't do anything.</p>
+
+<p>You can also touch the tab bars:</p>
+
+<pre><code>ruby-1.9.2-p290 :016 &gt; touch("tabBarButton index:1")
+</code></pre>
+
+<p>The filter: <code>index:1</code> means that it is the second tab-bar button that should be touched.</p>
+
+<h3>Accessibility</h3>
+
+<p>In general UI views are found using accesibility labels. To use those in the simulator they must be enabled.</p>
+
+<ul>
+<li>Press the "home-screen" button in the iOS Simulator</li>
+<li>Scroll left and open the Settings app insied iOS Simulator</li>
+<li>Select <code>General</code> > <code>Accessibility</code> > <code>Accessibility Inspector</code> : On.</li>
+<li>Re-run the sample app from XCode.</li>
+</ul>
+
+<p>In your irb session try this:</p>
+
+<pre><code>ruby-1.9.2-p290 :025 &gt; query("view marked:'switch'")
+</code></pre>
+
+<p>This command finds a view with accessibility label 'switch' (not that we use single quotes to delimit the accessibility label.</p>
+
+<p>In general, many views have accessibility labels that "make sense". For example the tab bar buttons have accessibility labels:</p>
+
+<pre><code>ruby-1.9.2-p290 :029 &gt; touch("tabBarButton marked:'second'")
+</code></pre>
+
+<p>To control accessibility labels on your views use:
+<code>isAccessibilityElement = YES, and accessibilityLabel = @"somelbl";</code> This can be done in interface builder or programmatically:</p>
+
+<pre><code>    (void) viewDidLoad {
+        [super viewDidLoad];
+        self.uiswitch.isAccessibilityElement = YES;
+        self.uiswitch.accessibilityLabel = @"switch";
+    }
+</code></pre>
+
+<h3>Advanced commands</h3>
+
+<p>Surprisingly, these commands are enough to navigate fairly many iOS apps. However, there are many more commands available. Consult the file <code>documentation/GherkinAPI.txt</code> for examples of how to use these.</p>
+
+<h3>Working with your app</h3>
+
+<p>Now you're ready to work with your app.</p>
+
+<p>You should download the LessPainful-ios-server project from Github:</p>
+
+<p><a href="https://github.com/LessPainful/LessPainful_ios_server">LessPainful-ios-server</a></p>
+
+<p>Read the <code>README</code> from that project, and follow the instructions on
+how to run LessPainful on your project.</p>
