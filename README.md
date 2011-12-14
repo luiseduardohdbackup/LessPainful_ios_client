@@ -1,27 +1,17 @@
-License
-=======
-LessPainful-ios-client
-Copyright (c) Karl Krukow. All rights reserved.
-The use and distribution terms for this software are covered by the
-Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-which can be found in the file epl-v10.html at the root of this distribution.
-By using this software in any fashion, you are agreeing to be bound by
-the terms of this license.
-You must not remove this notice, or any other, from this software.
-
 This guide explains how to setup and use LessPainful for iOS.
 =============================================================
 
 After completing this guide you will be able to run
 tests locally against the iOS Simulator. You can also
-interactively explore your applications using the Ruby
+interactively explore the sample application using the Ruby
 irb console.
 
-Finally you will be able to build your application using special "test
-target" and run that on real iOS devices via
-[the LessPainful service](http://www.lesspainful.com/).
+After you install this client project, you can download the
+LessPainful-ios-server project to test you own app.
 
-This guide takes approximately 10-15 minutes to complete.
+(https://github.com/LessPainful/LessPainful_ios_server)
+
+This guide takes approximately 10 minutes to complete.
 
 Installing the client.
 ----------------------
@@ -172,3 +162,14 @@ You should download the LessPainful-ios-server project from Github:
 
 Read the `README` from that project, and follow the instructions on
 how to run LessPainful on your project.
+
+License
+=======
+LessPainful-ios-client
+Copyright (c) Karl Krukow. All rights reserved.
+The use and distribution terms for this software are covered by the
+Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+which can be found in the file epl-v10.html at the root of this distribution.
+By using this software in any fashion, you are agreeing to be bound by
+the terms of this license.
+You must not remove this notice, or any other, from this software.
